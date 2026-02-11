@@ -1,0 +1,821 @@
+[
+  {
+    "punchId": "PP-001",
+    "system": "Main Turbine",
+    "description": "High vibration detected on turbine bearing #3 (8.5 mm/s) - Requires immediate balancing",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-002",
+    "system": "Main Turbine",
+    "description": "Oil leak from turbine front bearing seal - Replace seal kit urgently",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-003",
+    "system": "Main Turbine",
+    "description": "Turbine blade erosion detected in LP stage 4 - Schedule blade replacement",
+    "closedAt": "2024-12-10T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-004",
+    "system": "Safety Systems",
+    "description": "Overspeed protection system failure during test - Calibrate sensors immediately",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-005",
+    "system": "Steam System",
+    "description": "Steam seal pressure fluctuation ±0.3 bar - Adjust control valve",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-006",
+    "system": "Main Turbine",
+    "description": "Turbine casing temperature uneven distribution - Inspect insulation layers",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-007",
+    "system": "Control Systems",
+    "description": "Governor control valve sticking at 45% position - Clean/rebuild valve assembly",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-008",
+    "system": "Main Turbine",
+    "description": "Rotor eccentricity exceeds tolerance (0.08mm) - Critical realignment required",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-009",
+    "system": "Bearings",
+    "description": "Thrust bearing wear exceeds limit - Replace bearing pads during next shutdown",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-010",
+    "system": "Main Turbine",
+    "description": "HP turbine efficiency dropped 2.3% - Investigate steam quality and nozzles",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-011",
+    "system": "Auxiliary Systems",
+    "description": "Turning gear motor overheating at 95°C - Check lubrication system",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-012",
+    "system": "Instrumentation",
+    "description": "Vibration monitoring system sensor #7 defective - Replace sensor module",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-013",
+    "system": "Steam System",
+    "description": "Steam chest pressure oscillation ±5 psi - Tune PID controller parameters",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-014",
+    "system": "Mechanical",
+    "description": "Coupling bolt torque loss on 4 bolts - Retorque all coupling bolts to spec",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-015",
+    "system": "Safety Systems",
+    "description": "Turbine trip valve slow response (2.3s) - Service hydraulic actuator",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-016",
+    "system": "Condenser",
+    "description": "LP turbine vacuum deteriorating to 85% - Check condenser performance",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-017",
+    "system": "Steam Seals",
+    "description": "Diaphragm gland steam leak visible during operation - Replace gland seals",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-018",
+    "system": "Extraction System",
+    "description": "Extraction steam pressure unstable ±8 psi - Calibrate pressure transmitter",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-019",
+    "system": "Drainage",
+    "description": "Turbine casing drain valve seized in closed position - Free up or replace",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-020",
+    "system": "Instrumentation",
+    "description": "Supervisory instrumentation showing erratic readings - Check wiring and grounds",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-021",
+    "system": "Generator",
+    "description": "Generator bearing temperature high at 88°C - Inspect cooling water flow",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-022",
+    "system": "Generator",
+    "description": "Stator winding insulation resistance low (150 MΩ) - Perform drying procedure",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-023",
+    "system": "Excitation System",
+    "description": "Exciter voltage regulator hunting ±5V - Adjust AVR control loop",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-024",
+    "system": "Generator",
+    "description": "Hydrogen cooling system pressure drop detected - Check for leaks",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-025",
+    "system": "Generator",
+    "description": "Rotor ground fault alarm intermittent - Investigate brush gear system",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-026",
+    "system": "Electrical",
+    "description": "Generator output breaker contact resistance high - Clean and service contacts",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-027",
+    "system": "Cooling System",
+    "description": "Generator air cooler fin blockage 30% - Clean cooling fins",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-028",
+    "system": "Protection",
+    "description": "Differential protection relay calibration drift - Recalibrate relay settings",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-029",
+    "system": "62EKH Unit",
+    "description": "AA102 sensor not tested for FGC 63/11 and 63/12 - Complete sensor validation",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-030",
+    "system": "Transformer",
+    "description": "Main transformer oil temperature elevated to 82°C - Check cooling fans",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-031",
+    "system": "Transformer",
+    "description": "Buchholz relay showing gas accumulation - Sample and analyze transformer oil",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-032",
+    "system": "Transformer",
+    "description": "OLTC operation counter at 98% of maintenance interval - Schedule maintenance",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-033",
+    "system": "Switchgear",
+    "description": "Circuit breaker SF6 gas pressure low alarm - Refill gas to specification",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-034",
+    "system": "Switchgear",
+    "description": "Busbar temperature imbalance detected on phase B - Inspect connections",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-035",
+    "system": "Auxiliary Power",
+    "description": "Unit auxiliary transformer cooling pump failure - Replace pump motor",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-036",
+    "system": "Battery System",
+    "description": "DC battery bank voltage drift 2V below nominal - Equalize charge cells",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-037",
+    "system": "UPS System",
+    "description": "UPS bypass mode activated unexpectedly - Diagnose inverter fault",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-038",
+    "system": "Boiler",
+    "description": "Boiler drum level control oscillating ±150mm - Retune level controller",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-039",
+    "system": "Boiler",
+    "description": "Superheater outlet temperature deviation 15°C between sides - Balance dampers",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-040",
+    "system": "Boiler",
+    "description": "Furnace pressure control unstable - Calibrate draft control system",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-041",
+    "system": "Combustion",
+    "description": "Burner flame scanner malfunctioning on burner #3 - Replace UV sensor",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-042",
+    "system": "Combustion",
+    "description": "Fuel oil atomizing steam pressure low - Clear steam line restriction",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-043",
+    "system": "Air Preheater",
+    "description": "Air preheater rotor drive motor overload - Inspect rotor bearings",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-044",
+    "system": "Air Preheater",
+    "description": "APH sealing air fan vibration excessive - Balance fan impeller",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-045",
+    "system": "Economizer",
+    "description": "Economizer tube leak detected in section D - Plug affected tubes",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-046",
+    "system": "Feedwater System",
+    "description": "BFP discharge pressure fluctuation ±12 bar - Check pump suction conditions",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-047",
+    "system": "Feedwater System",
+    "description": "Feedwater heater level control valve sticking - Service valve actuator",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-048",
+    "system": "Deaerator",
+    "description": "Deaerator oxygen content above 7 ppb - Inspect spray nozzles",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-049",
+    "system": "Condensate System",
+    "description": "Condensate pump cavitation noise audible - Lower suction lift",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-050",
+    "system": "Condenser",
+    "description": "Condenser vacuum pump seal water pressure low - Adjust seal water system",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-051",
+    "system": "Cooling Water",
+    "description": "Circulating water pump motor bearing temperature 92°C - Replace bearings",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-052",
+    "system": "Cooling Tower",
+    "description": "Cooling tower fan gearbox oil leak - Replace gearbox seals",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-053",
+    "system": "Cooling Tower",
+    "description": "Fill media blockage reducing cooling efficiency - Clean fill sections",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-054",
+    "system": "Water Treatment",
+    "description": "Demineralizer resin exhaustion premature - Analyze raw water quality",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-055",
+    "system": "Water Treatment",
+    "description": "Chemical dosing pump stroke adjustment required - Recalibrate pump",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-056",
+    "system": "Fuel System",
+    "description": "Heavy fuel oil heating system temperature controller failure - Replace controller",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-057",
+    "system": "Fuel System",
+    "description": "Fuel oil strainer differential pressure high - Clean strainer basket",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-058",
+    "system": "Coal Handling",
+    "description": "Coal conveyor belt misalignment detected - Adjust belt tracking",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-059",
+    "system": "Coal Handling",
+    "description": "Crusher discharge chute blockage recurring - Modify chute design",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-060",
+    "system": "Pulverizer",
+    "description": "Mill outlet temperature running high at 95°C - Adjust primary air flow",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-061",
+    "system": "Pulverizer",
+    "description": "Pulverizer bowl liner wear exceeding limits - Schedule liner replacement",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-062",
+    "system": "ID Fan",
+    "description": "Induced draft fan blade erosion visible - Plan blade refurbishment",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-063",
+    "system": "FD Fan",
+    "description": "Forced draft fan inlet damper actuator failure - Replace hydraulic cylinder",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-064",
+    "system": "PA Fan",
+    "description": "Primary air fan motor winding temperature uneven - Check cooling system",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-065",
+    "system": "Ash Handling",
+    "description": "Bottom ash hopper water seal leaking - Repair seal arrangement",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-066",
+    "system": "Ash Handling",
+    "description": "Fly ash silo level transmitter reading erratic - Clean/replace transmitter",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-067",
+    "system": "ESP",
+    "description": "Electrostatic precipitator field #2 tripping on overcurrent - Inspect electrodes",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-068",
+    "system": "ESP",
+    "description": "ESP hopper heating system not maintaining temperature - Check heating elements",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-069",
+    "system": "FGD System",
+    "description": "Flue gas desulfurization absorber recirculation pump seal leaking - Replace seal",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-070",
+    "system": "FGD System",
+    "description": "Limestone slurry pH control deviation - Calibrate pH measurement",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-071",
+    "system": "SCR System",
+    "description": "Selective catalytic reduction ammonia injection grid plugged - Clean injection grid",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-072",
+    "system": "CEMS",
+    "description": "Continuous emission monitoring system calibration drift - Perform calibration",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-073",
+    "system": "Stack",
+    "description": "Stack damper position feedback error - Adjust limit switches",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-074",
+    "system": "DCS",
+    "description": "Distributed control system I/O card fault on cabinet 7 - Replace faulty card",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-075",
+    "system": "DCS",
+    "description": "Operator station monitor flickering - Replace monitor unit",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-076",
+    "system": "PLC",
+    "description": "PLC communication timeout on coal handling system - Check network cables",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-077",
+    "system": "SCADA",
+    "description": "SCADA server hard drive space below 10% - Archive old trend data",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-078",
+    "system": "Control Valves",
+    "description": "Main steam control valve positioner hunting - Tune positioner parameters",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-079",
+    "system": "Control Valves",
+    "description": "Feedwater control valve packing gland leaking - Tighten/replace packing",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-080",
+    "system": "Pressure Transmitters",
+    "description": "Steam pressure transmitter zero drift 0.5 bar - Recalibrate transmitter",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-081",
+    "system": "Temperature Sensors",
+    "description": "Thermocouple reading 20°C below redundant sensor - Replace thermocouple",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-082",
+    "system": "Flow Meters",
+    "description": "Steam flow meter totalizer not incrementing - Check impulse lines",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-083",
+    "system": "Level Instruments",
+    "description": "Deaerator level transmitter foam sensitivity issue - Install foam suppressor",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-084",
+    "system": "Analyzers",
+    "description": "Oxygen analyzer reading stuck at 2% - Clean/replace sensor cell",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-085",
+    "system": "Safety Valves",
+    "description": "Superheater safety valve weeping during operation - Reseat valve disc",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-086",
+    "system": "Safety Valves",
+    "description": "Drum safety valve set pressure drift - Retest and adjust setpoint",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-087",
+    "system": "Fire Protection",
+    "description": "Fire detection system zone 12 showing fault - Investigate detector loop",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-088",
+    "system": "Fire Protection",
+    "description": "Deluge valve quarterly test failed to actuate - Service valve mechanism",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-089",
+    "system": "Fire Protection",
+    "description": "CO2 system cylinder pressure below minimum - Refill cylinders",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-090",
+    "system": "Emergency Systems",
+    "description": "Emergency generator failed to start during test - Repair starting system",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-091",
+    "system": "Emergency Systems",
+    "description": "Emergency lighting battery backup duration only 45 minutes - Replace batteries",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-092",
+    "system": "HVAC",
+    "description": "Control room HVAC system not maintaining temperature - Check refrigerant charge",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-093",
+    "system": "HVAC",
+    "description": "Cable room ventilation fan not starting on temperature rise - Fix interlock",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-094",
+    "system": "Compressed Air",
+    "description": "Instrument air dryer dew point rising above -40°C - Regenerate desiccant",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-095",
+    "system": "Compressed Air",
+    "description": "Service air compressor auto-start failure - Replace pressure switch",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-096",
+    "system": "Lube Oil System",
+    "description": "Turbine lube oil reservoir level slowly decreasing - Find and repair leak",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-097",
+    "system": "Lube Oil System",
+    "description": "Lube oil cooler differential pressure high - Clean cooler tubes",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-098",
+    "system": "Hydraulic System",
+    "description": "Governor oil pressure fluctuation ±3 bar - Check accumulator precharge",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-099",
+    "system": "Sealing Systems",
+    "description": "Hydrogen seal oil differential pressure alarm - Adjust seal oil pressure",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-100",
+    "system": "Auxiliary Boiler",
+    "description": "Auxiliary boiler feedwater pump motor overheating - Check motor cooling",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-101",
+    "system": "Auxiliary Boiler",
+    "description": "Aux boiler burner flame instability during modulation - Clean burner tips",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-102",
+    "system": "Auxiliary Systems",
+    "description": "Gland steam condenser hotwell pump seal leak - Replace mechanical seal",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-103",
+    "system": "Cooling Water",
+    "description": "Service water strainer differential pressure alarm - Clean strainer basket",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-104",
+    "system": "Drainage",
+    "description": "Turbine building sump pump float switch stuck - Replace float switch",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-105",
+    "system": "Piping",
+    "description": "Main steam line hanger spring can #7 bottomed out - Replace hanger assembly",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-106",
+    "system": "Piping",
+    "description": "Feedwater piping vibration excessive near economizer inlet - Add support",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-107",
+    "system": "Insulation",
+    "description": "Hot reheat steam line insulation damaged - Repair insulation jacket",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-108",
+    "system": "Expansion Joints",
+    "description": "Boiler ductwork expansion joint tearing - Replace expansion joint fabric",
+    "closedAt": "2024-12-17T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-109",
+    "system": "Valves",
+    "description": "Main steam isolation valve limit switch misalignment - Adjust limit switch",
+    "closedAt": "2024-12-11T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-110",
+    "system": "Valves",
+    "description": "Bypass valve position feedback potentiometer failure - Replace potentiometer",
+    "closedAt": "2024-12-16T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-111",
+    "system": "Pump Systems",
+    "description": "Condensate extraction pump bearing vibration 9.2 mm/s - Replace bearings",
+    "closedAt": "2024-12-13T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-112",
+    "system": "Pump Systems",
+    "description": "Boiler feed pump minimum flow valve chattering - Adjust valve cushion",
+    "closedAt": "2024-12-19T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-113",
+    "system": "Tank Systems",
+    "description": "Condensate storage tank level gauge reading incorrect - Calibrate gauge",
+    "closedAt": "2024-12-15T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-114",
+    "system": "Tank Systems",
+    "description": "Fuel oil day tank heating coil leak detected - Isolate and repair coil",
+    "closedAt": "2024-12-18T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-115",
+    "system": "Electrical Motors",
+    "description": "ID fan motor bearing temperature 95°C - Inspect bearing lubrication",
+    "closedAt": "2024-12-12T00:00:00.000Z",
+    "status": true
+  },
+  {
+    "punchId": "PP-116",
+    "system": "Electrical Motors",
+    "description": "BFP motor winding insulation test marginal - Schedule motor rewind",
+    "closedAt": "2024-12-20T00:00:00.000Z",
+    "status": false
+  },
+  {
+    "punchId": "PP-117",
+    "system": "Variable Frequency Drives",
+    "description": "VFD cooling fan fault on drive #3 - Replace cooling fan",
+    "closedAt": "2024-12-14T00:00:00.000Z",
+    "status": true
+  }
+]

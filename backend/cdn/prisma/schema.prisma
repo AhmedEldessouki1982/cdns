@@ -1,0 +1,58 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  mobile    String    @db.VarChar(20)
+  Role      UserRoles @default(USER)
+}
+
+enum UserRoles {
+  USER
+  MANAGER
+}
+
+// TOD - Turning Over Defects (Project Punch List)
+model TOD {
+  id          Int      @id @default(autoincrement())
+  punchId     String   @unique @db.VarChar(50)     // e.g., "PP-019"
+  system      String   @db.VarChar(255)            // e.g., "Drainage", "HVAC", "Electrical"
+  description String   @db.Text                    // Detailed defect description
+  closedAt    DateTime?                            // Date when defect was closed
+  status      Boolean  @default(false)             // true = closed, false = open
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([punchId])
+  @@index([system])
+  @@index([status])
+  @@map("tod")
+}
+
+// RAG Chunks - Vector embeddings for semantic search
+model RagChunk {
+  id          Int      @id @default(autoincrement())
+  sourceTable String   @db.VarChar(255)            // e.g., "tod"
+  sourcePk    String   @db.VarChar(255)            // e.g., "PP-019"
+  field       String   @db.VarChar(255)            // e.g., "description"
+  chunkIndex  Int                                  // Index of chunk within the field
+  content     String   @db.Text                    // The actual text content
+  embedding   Unsupported("vector")                // pgvector embedding (1536 dimensions)
+  tags        String[]                             // Metadata tags for filtering
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([sourceTable, sourcePk, field, chunkIndex])
+  @@index([sourceTable, sourcePk])
+  @@map("rag_chunks")
+}

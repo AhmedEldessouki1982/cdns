@@ -1,0 +1,84 @@
+RAG Implementation Plan
+
+1. Architecture Setup
+   Install vector database library (pgvector extension for PostgreSQL or @pinecone/pinecone/chromadb)
+   Extend Prisma schema to add embeddings table/columns for TOD documents
+   Install embedding library (@langchain/openai or use OpenAI embeddings API directly)
+   Set up embedding service alongside existing AiService
+2. Data Preparation & Embedding
+   Create TOD document chunks from description, system, punchId, and status fields
+   Generate embeddings using OpenAI text-embedding-3-small or text-embedding-3-large
+   Store embeddings with metadata (punchId, system, status, closedAt) in vector store
+   Batch process existing TOD records and schedule incremental updates
+3. Vector Storage Options
+   Option A: PostgreSQL with pgvector (recommended - uses existing DB)
+   Add pgvector extension to PostgreSQL
+   Create embeddings column in TOD table or separate embeddings table
+   Option B: External vector DB (Pinecone, Chroma, Weaviate)
+   Store embeddings externally, keep metadata references in PostgreSQL
+4. Retrieval System
+   Create RagService that:
+   Converts user query to embedding
+   Performs similarity search (cosine similarity) in vector store
+   Retrieves top-k most relevant TOD records (e.g., top 5-10)
+   Returns relevant context with metadata (punchId, system, status, dates)
+5. RAG Analysis Endpoint
+   Extend AiController with analysis endpoint (POST /ai/analyze)
+   Build prompt with:
+   System prompt defining analysis context (TOD data structure)
+   Retrieved relevant TOD records as context
+   User query/analysis request
+   Use AiService.createCompletion() with context-enriched prompt
+   Return structured analysis (JSON) with insights, patterns, recommendations
+6. Analysis Use Cases
+   Trend Analysis: "Analyze open defects by system over time"
+   Root Cause: "What are common issues in HVAC system defects?"
+   Predictive: "Which systems have the highest risk based on patterns?"
+   Summary: "Summarize all critical open defects requiring attention"
+   Comparison: "Compare defect patterns between systems"
+7. Enhanced Prisma Schema
+   Add embeddings table or extend TOD model:
+   embedding vector(1536) for OpenAI embeddings
+   Or separate TodoEmbedding model with foreign key to TOD
+8. Service Layer Structure
+   EmbeddingService: Generate embeddings from TOD data
+   RagService: Handle retrieval (query embedding + similarity search)
+   AnalysisService: Orchestrate RAG flow (retrieve → augment → analyze)
+   Integrate with existing AiService for LLM completion
+9. API Endpoints
+   POST /ai/analyze: Main RAG analysis endpoint
+   Request: { query: string, filters?: { system?, status? } }
+   Response: { analysis: string, relevantTODs: TOD[], usage: {...} }
+   POST /ai/embeddings/sync: Re-index all TODs (admin endpoint)
+   GET /ai/embeddings/status: Check embedding sync status
+10. Frontend Integration
+    Add analysis UI component in Table/Chart views
+    Query input for natural language questions
+    Display analysis results with citations (relevant punchIds)
+    Show confidence/context sources
+    Filter analysis by system/status before querying
+11. Performance Optimization
+    Cache frequently asked queries/results
+    Use async embedding generation for batch operations
+    Implement pagination for large retrieval results
+    Add query preprocessing (spell check, keyword extraction)
+12. Security & Access Control
+    Apply auth guards to analysis endpoints
+    Rate limit analysis requests (cost control)
+    Log analysis queries for audit
+    Consider role-based access (USER vs MANAGER permissions)
+13. Monitoring & Costs
+    Track OpenAI API usage (embeddings + completions)
+    Monitor retrieval accuracy/quality
+    Set up alerts for high-cost operations
+    Track query patterns for optimization
+14. Implementation Priority
+    Set up pgvector in PostgreSQL (if using Option A)
+    Create embedding generation service
+    Build initial embedding index for existing TODs
+    Implement retrieval/search functionality
+    Create RAG analysis endpoint
+    Test with sample queries
+    Add frontend UI
+    Optimize and monitor
+    This integrates with your existing NestJS structure and leverages the current OpenAI setup

@@ -1,0 +1,43 @@
+import { Injectable } from '@nestjs/common';
+import { TextChunk } from 'src/common/interfaces/chunks';
+import { ExtractedPage } from 'src/common/interfaces/extracted-page.interface';
+
+@Injectable()
+export class ChunksService {
+  private readonly CHUNK_SIZE = 800;
+  private readonly OVERLAP = 150;
+
+  createChunks(pages: ExtractedPage[], docId: string): TextChunk[] {
+    const chunks: TextChunk[] = [];
+
+    for (const page of pages) {
+      const paragraphs = page.text
+        .split('\n')
+        .filter((paragraph) => paragraph.trim().length > 0);
+      let buffer = '';
+      for (const paragraph of paragraphs) {
+        if ((buffer.length + paragraph + ' ').length > this.CHUNK_SIZE) {
+          chunks.push({
+            chunkId: crypto.randomUUID(),
+            docId: docId,
+            page: page.page,
+            text: buffer.trim(),
+          });
+
+          // Keep last OVERLAP characters for context
+          buffer = buffer.slice(buffer.length - this.OVERLAP);
+        }
+        buffer += paragraph + ' ';
+      }
+      if (buffer.length > 0) {
+        chunks.push({
+          chunkId: crypto.randomUUID(),
+          docId: docId,
+          page: page.page,
+          text: buffer.trim(),
+        });
+      }
+    }
+    return chunks;
+  }
+}
