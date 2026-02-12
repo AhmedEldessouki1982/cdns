@@ -3,8 +3,8 @@ import { IndexFlatL2 } from 'faiss-node';
 
 @Injectable()
 export class FaissService {
-  private index: IndexFlatL2;
   private readonly DIMENSIONS = 1536;
+  private index: IndexFlatL2;
 
   private metadata: {
     text: string;
@@ -28,14 +28,16 @@ export class FaissService {
       throw new BadRequestException('Vectors and metadata length mismatch');
     }
 
+    // Validate dimensions
     vectors.forEach((v, i) => {
-      if (v.length !== this.DIMENSIONS) {
+      if (!Array.isArray(v) || v.length !== this.DIMENSIONS) {
         throw new BadRequestException(
           `Vector at index ${i} must have ${this.DIMENSIONS} dimensions`,
         );
       }
     });
 
+    // Flatten 2D -> 1D Float32Array
     const flat = new Float32Array(vectors.length * this.DIMENSIONS);
 
     let offset = 0;
@@ -44,7 +46,10 @@ export class FaissService {
       offset += this.DIMENSIONS;
     }
 
-    this.index.add(Array.from(flat));
+    // IMPORTANT: pass Float32Array directly
+    this.index.add(flat as unknown as number[]);
+
+    // Store metadata aligned with FAISS internal IDs
     this.metadata.push(...metadatas);
 
     return {
@@ -54,7 +59,7 @@ export class FaissService {
   }
 
   search(queryVector: number[], topK = 5) {
-    if (queryVector.length !== this.DIMENSIONS) {
+    if (!Array.isArray(queryVector) || queryVector.length !== this.DIMENSIONS) {
       throw new BadRequestException(
         `Query vector must have ${this.DIMENSIONS} dimensions`,
       );
@@ -62,7 +67,11 @@ export class FaissService {
 
     const query = new Float32Array(queryVector);
 
-    const { distances, labels } = this.index.search(Array.from(query), topK);
+    // IMPORTANT: pass Float32Array directly
+    const { distances, labels } = this.index.search(
+      query as unknown as number[],
+      topK,
+    );
 
     return labels.map((id: number, i: number) => ({
       score: distances[i],

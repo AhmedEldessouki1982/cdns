@@ -5,5 +5,6 @@ import { FaissController } from './faiss.controller';
 @Module({
   controllers: [FaissController],
   providers: [FaissService],
+  exports: [FaissService],
 })
 export class FaissModule {}

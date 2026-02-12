@@ -1,7 +1,14 @@
-import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common';
 import { PdfService } from './pdf.service';
 import { ChunksService } from 'src/chunks/chunks.service';
 import { EmbeddingsService } from 'src/embeddings/embeddings.service';
+import { FaissService } from 'src/faiss/faiss.service';
 
 @Controller('pdf')
 export class PdfController {
@@ -9,6 +16,7 @@ export class PdfController {
     private readonly pdfService: PdfService,
     private readonly chunksService: ChunksService,
     private readonly embeddingsService: EmbeddingsService,
+    private readonly faissService: FaissService,
   ) {}
 
   @Get('process')
@@ -39,11 +47,23 @@ export class PdfController {
       })),
     );
 
+    // Add vectors to FAISS index
+    const faissResult = this.faissService.addVectors(
+      chunksWithEmbeddings.map((chunk) => chunk.embedding),
+      chunks,
+    );
+    if (!faissResult) {
+      throw new InternalServerErrorException(
+        'Failed to add vectors to FAISS index',
+      );
+    }
+
     return {
       document: filePath,
       pagesCount: thePDF.length,
       chunksCount: chunks.length,
-      chunks: chunksWithEmbeddings, // embeddings
+      faissResult,
+      // chunks: chunksWithEmbeddings, // embeddings
     };
   }
 }
