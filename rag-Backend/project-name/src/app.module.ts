@@ -5,6 +5,7 @@ import { PdfModule } from './pdf/pdf.module';
 import { ChunksModule } from './chunks/chunks.module';
 import { EmbeddingsModule } from './embeddings/embeddings.module';
 import { ConfigModule } from '@nestjs/config';
+import { FaissModule } from './faiss/faiss.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    FaissModule,
   ],
   controllers: [AppController],
   providers: [AppService],
