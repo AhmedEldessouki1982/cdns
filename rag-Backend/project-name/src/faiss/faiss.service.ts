@@ -68,10 +68,7 @@ export class FaissService {
     const query = new Float32Array(queryVector);
 
     // IMPORTANT: pass Float32Array directly
-    const { distances, labels } = this.index.search(
-      query as unknown as number[],
-      topK,
-    );
+    const { distances, labels } = this.index.search(Array.from(query), topK);
 
     return labels.map((id: number, i: number) => ({
       score: distances[i],

@@ -19,6 +19,18 @@ export class PdfController {
     private readonly faissService: FaissService,
   ) {}
 
+  @Get('analyze')
+  async search(@Query('q') query: string) {
+    const embedding = await this.embeddingsService.embedding(query);
+
+    const results = this.faissService.search(embedding, 5);
+
+    return {
+      query,
+      results,
+    };
+  }
+
   @Get('process')
   async extract(@Query('file') file: string | string[] | undefined) {
     const filePath = Array.isArray(file) ? file[0] : file;
