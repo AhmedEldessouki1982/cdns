@@ -47,7 +47,7 @@ export class FaissService {
     }
 
     // IMPORTANT: pass Float32Array directly
-    this.index.add(flat as unknown as number[]);
+    this.index.add(Array.from(flat));
 
     // Store metadata aligned with FAISS internal IDs
     this.metadata.push(...metadatas);
