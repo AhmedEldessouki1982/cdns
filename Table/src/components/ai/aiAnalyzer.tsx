@@ -8,26 +8,34 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
-import { api } from '@/api/client';
+import { ragAPI } from '@/api/rag';
 import { SendIcon, Loader2Icon, Trash2Icon, SparklesIcon } from 'lucide-react';
 
-//message type
+type RagResult = {
+  score: number;
+  text: string;
+  docId: string;
+  page: number;
+};
+
+type Citation = {
+  id: number;
+  docId: string;
+  page: number;
+  content: string;
+  score?: number;
+};
+
 type Message = {
   role: 'user' | 'assistant';
   content: string;
-  citations?: Array<{
-    id: number;
-    source_table: string;
-    source_pk: string;
-    field: string;
-    content: string;
-    score?: number;
-  }>;
-  timestamp?: Date;
+  citations?: Citation[];
+  timestamp: Date;
 };
 
 const exampleQuestions = [
   'What are the most common issues in HVAC systems?',
+  'What are the most common issues in fuel gas compressors systems?',
   'Which systems have the most open defects?',
   'Summarize all critical defects requiring immediate attention',
   'What patterns do you see in closed defects?',
@@ -44,6 +52,20 @@ export default function AiAnalyzer() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
+
+  const formatResults = (results: RagResult[]): string => {
+    if (results.length === 0) {
+      return 'No relevant passages found. Try rephrasing your question or ensure PDFs have been processed.';
+    }
+
+    return results
+      .map((r, i) => {
+        const preview =
+          r.text.length > 300 ? `${r.text.slice(0, 300)}...` : r.text;
+        return `${i + 1}. (${r.docId} p.${r.page}) ${preview}`;
+      })
+      .join('\n\n');
+  };
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,16 +84,25 @@ export default function AiAnalyzer() {
     setIsLoading(true);
 
     try {
-      const response = await api.askAI(question);
+      const response = await ragAPI.analyzePdf(question);
 
-      if (!response || !response.answer) {
+      if (!response?.results) {
         throw new Error('Invalid response from server');
       }
 
+      const results = response.results as RagResult[];
+      const content = formatResults(results);
+
       const assistantMessage: Message = {
         role: 'assistant',
-        content: response.answer,
-        citations: response.citations || [],
+        content,
+        citations: results.map((r, idx) => ({
+          id: idx,
+          docId: r.docId,
+          page: r.page,
+          content: r.text,
+          score: r.score,
+        })),
         timestamp: new Date(),
       };
 
@@ -79,13 +110,21 @@ export default function AiAnalyzer() {
     } catch (error: any) {
       console.error('AI query error:', error);
 
+      let errorContent = 'Sorry, I encountered an error while processing your question.';
+      
+      if (error?.code === 'ECONNREFUSED' || error?.message?.includes('Network Error')) {
+        errorContent = 'Cannot connect to RAG backend. Please ensure the backend is running on port 4000.';
+      } else if (error?.response?.status === 404) {
+        errorContent = 'RAG backend endpoint not found. Please check the backend configuration.';
+      } else if (error?.response?.data?.message) {
+        errorContent = error.response.data.message;
+      } else if (error?.message) {
+        errorContent = error.message;
+      }
+
       const errorMessage: Message = {
         role: 'assistant',
-        content: error?.response?.data?.message
-          ? `Error: ${error.response.data.message}`
-          : error?.message
-            ? `Error: ${error.message}`
-            : 'Sorry, I encountered an error while processing your question. Please check your connection and try again.',
+        content: `❌ ${errorContent}`,
         timestamp: new Date(),
       };
 
@@ -99,6 +138,7 @@ export default function AiAnalyzer() {
   const handleClear = () => {
     setMessages([]);
     setInput('');
+    inputRef.current?.focus();
   };
 
   const handleExampleClick = (question: string) => {
@@ -125,15 +165,22 @@ export default function AiAnalyzer() {
               size="sm"
               onClick={handleClear}
               className="flex items-center gap-2"
+              aria-label="Clear conversation"
             >
               <Trash2Icon className="w-4 h-4" />
               Clear
             </Button>
           )}
         </CardHeader>
+
         <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
           {/* Messages area */}
-          <div className="flex-1 overflow-y-auto space-y-4 p-4 border rounded-lg bg-slate-50/50 min-h-[400px] max-h-[600px]">
+          <div
+            className="flex-1 overflow-y-auto space-y-4 p-4 border rounded-lg bg-slate-50/50 min-h-[400px] max-h-[600px]"
+            role="log"
+            aria-live="polite"
+            aria-label="Conversation messages"
+          >
             {messages.length === 0 ? (
               <div className="text-center text-muted-foreground py-8">
                 <SparklesIcon className="w-12 h-12 mx-auto mb-4 text-primary/50" />
@@ -147,6 +194,7 @@ export default function AiAnalyzer() {
                       key={idx}
                       onClick={() => handleExampleClick(q)}
                       className="text-left text-sm p-3 rounded-lg border hover:bg-accent hover:border-primary/50 transition-colors text-muted-foreground hover:text-foreground"
+                      aria-label={`Use example question: ${q}`}
                     >
                       "{q}"
                     </button>
@@ -168,25 +216,35 @@ export default function AiAnalyzer() {
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-white border shadow-sm'
                       }`}
+                      role={
+                        message.role === 'assistant' ? 'article' : undefined
+                      }
                     >
                       <p className="text-sm whitespace-pre-wrap leading-relaxed">
                         {message.content}
                       </p>
+
                       {message.citations && message.citations.length > 0 && (
                         <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
                           <p className="text-xs font-semibold text-muted-foreground mb-2">
                             📚 Sources ({message.citations.length}):
                           </p>
                           <div className="space-y-2">
-                            {message.citations.map((cite, idx) => (
+                            {message.citations.map((cite) => (
                               <div
-                                key={cite.id || idx}
+                                key={cite.id}
                                 className="text-xs bg-slate-100 dark:bg-slate-800 p-2 rounded border-l-2 border-primary"
                               >
                                 <p className="font-medium text-foreground">
-                                  {cite.source_table}:{cite.source_pk}
+                                  {cite.docId} (p. {cite.page})
                                 </p>
-                                {cite.score && (
+                                {cite.content && (
+                                  <p className="text-muted-foreground mt-1 line-clamp-2">
+                                    {cite.content.slice(0, 120)}
+                                    {cite.content.length > 120 ? '...' : ''}
+                                  </p>
+                                )}
+                                {cite.score !== undefined && (
                                   <p className="text-muted-foreground text-[10px] mt-1">
                                     Relevance: {(cite.score * 100).toFixed(1)}%
                                   </p>
@@ -196,17 +254,17 @@ export default function AiAnalyzer() {
                           </div>
                         </div>
                       )}
-                      {message.timestamp && (
-                        <p className="text-[10px] text-muted-foreground mt-2 opacity-70">
-                          {message.timestamp.toLocaleTimeString()}
-                        </p>
-                      )}
+
+                      <p className="text-[10px] text-muted-foreground mt-2 opacity-70">
+                        {message.timestamp.toLocaleTimeString()}
+                      </p>
                     </div>
                   </div>
                 ))}
                 <div ref={messagesEndRef} />
               </>
             )}
+
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-white border rounded-lg p-3 flex items-center gap-2 shadow-sm">
@@ -225,20 +283,16 @@ export default function AiAnalyzer() {
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a question about your TOD data... (Press Enter to send)"
+              placeholder="Ask a question about your TOD data..."
               disabled={isLoading}
               className="flex-1"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend(e);
-                }
-              }}
+              aria-label="Question input"
             />
             <Button
               type="submit"
               disabled={isLoading || !input.trim()}
               size="default"
+              aria-label={isLoading ? 'Sending...' : 'Send message'}
             >
               {isLoading ? (
                 <Loader2Icon className="w-4 h-4 animate-spin" />

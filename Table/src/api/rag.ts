@@ -4,7 +4,19 @@ const baseURL = 'http://localhost:4000/';
 //create a client instance for rag api
 const ragClient = axios.create({
   baseURL,
+  timeout: 30000, // 30 second timeout
 });
+
+// Add error interceptor for better error messages
+ragClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+      error.message = 'Cannot connect to RAG backend. Make sure it is running on port 4000.';
+    }
+    return Promise.reject(error);
+  }
+);
 
 //initiate a pdf from faiss
 //http://localhost:4000/pdf/process?file=cv.pdf
@@ -13,10 +25,11 @@ const initiatePdf = async (pdfUrl: string) => {
   return response.data;
 };
 
-//asking the rag to answer a question
-//http://localhost:4000/pdf/analyze
+// Ask the RAG backend a question (GET /pdf/analyze?q=...)
 const analyzePdf = async (question: string) => {
-  const response = await ragClient.post('/pdf/analyze', { question });
+  const response = await ragClient.get('/pdf/analyze', {
+    params: { q: question },
+  });
   return response.data;
 };
 
