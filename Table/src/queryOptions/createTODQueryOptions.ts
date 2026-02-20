@@ -24,3 +24,17 @@ export const createTODsearchOptions = ({
     enabled: !!searchQuery.trim(), // Only run query when searchQuery is not empty
   });
 };
+
+//http://localhost:3000/pagination/change-status/:id
+export const createTODchangeStatusOptions = ({
+  id,
+  status,
+}: {
+  id: number;
+  status: boolean;
+}) => {
+  return queryOptions({
+    queryKey: ['tod', 'change-status', id],
+    queryFn: () => todsAPI.changeTODstatus(id, status),
+  });
+};

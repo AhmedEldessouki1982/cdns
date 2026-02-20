@@ -22,7 +22,11 @@ const getPagination = async ({
 }: {
   page: string;
 }): Promise<{ todCount: number; openTod: number; data: TableData[] }> => {
-  const res = await client.get<{ todCount: number; openTod: number; data: TableData[] }>(`/pagination?page=${page}`);
+  const res = await client.get<{
+    todCount: number;
+    openTod: number;
+    data: TableData[];
+  }>(`/pagination?page=${page}`);
   return res.data;
 };
 
@@ -39,9 +43,22 @@ const getSearch = async ({
   return res.data;
 };
 
+//change the status of a tod
+// http://localhost:3000/pagination/change-status/:id
+const changeTODstatus = async (
+  id: number,
+  status: boolean
+): Promise<TableData> => {
+  const res = await client.put<TableData>(`/pagination/change-status/${id}`, {
+    status,
+  });
+  return res.data;
+};
+
 //export tods api hooks
 export const todsAPI = {
   fetchAllTods: getAllTods,
   paginationTods: getPagination,
   searchTods: getSearch,
+  changeTODstatus: changeTODstatus,
 };

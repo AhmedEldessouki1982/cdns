@@ -1,4 +1,12 @@
-import { Controller, Get, Query, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  ParseIntPipe,
+  Param,
+  Put,
+  Body,
+} from '@nestjs/common';
 import { PaginationService } from './pagination.service';
 import { TOD } from '@prisma/client';
 
@@ -15,9 +23,18 @@ export class PaginationController {
   }
 
   //search query
-
   @Get('search')
   async searchItems(@Query('search') search: string): Promise<TOD[]> {
     return this.paginationService.search(search);
+  }
+
+  //change the status of a tod
+  //url: /pagination/change-status/:id
+  @Put('change-status/:id')
+  async changeTODstatus(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Body() body: { status: boolean },
+  ): Promise<TOD> {
+    return this.paginationService.changeTODstatus(id, body.status);
   }
 }

@@ -18,8 +18,9 @@ import {
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { exportToExcel } from '@/utils/converXLS';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { createTODsearchOptions } from '@/queryOptions/createTODQueryOptions';
+import { todsAPI } from '@/api/todClient';
 
 export type TableData = {
   punchId: string;
@@ -56,6 +57,13 @@ export default function TableComponent({
   const { data: searchResponce } = useQuery(
     createTODsearchOptions({ searchQuery })
   );
+
+  //change the status of a tod useQuery
+  const { mutate } = useMutation({
+    mutationFn: (id: number, status: boolean) => {
+      return todsAPI.changeTODstatus(id, status);
+    },
+  });
 
   // Convert current page to number for calculations
   const currentPageNum = parseInt(currentPage, 10) || 1;

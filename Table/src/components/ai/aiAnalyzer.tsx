@@ -53,9 +53,10 @@ export default function AiAnalyzer() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
+  // Format the results into a string
   const formatResults = (results: RagResult[]): string => {
     if (results.length === 0) {
-      return 'No relevant passages found. Try rephrasing your question or ensure PDFs have been processed.';
+      return 'No relevant results found. Try rephrasing your question or ensure PDFs have been processed.';
     }
 
     return results
@@ -110,12 +111,18 @@ export default function AiAnalyzer() {
     } catch (error: any) {
       console.error('AI query error:', error);
 
-      let errorContent = 'Sorry, I encountered an error while processing your question.';
-      
-      if (error?.code === 'ECONNREFUSED' || error?.message?.includes('Network Error')) {
-        errorContent = 'Cannot connect to RAG backend. Please ensure the backend is running on port 4000.';
+      let errorContent =
+        'Sorry, I encountered an error while processing your question.';
+
+      if (
+        error?.code === 'ECONNREFUSED' ||
+        error?.message?.includes('Network Error')
+      ) {
+        errorContent =
+          'Cannot connect to RAG backend. Please ensure the backend is running on port 4000.';
       } else if (error?.response?.status === 404) {
-        errorContent = 'RAG backend endpoint not found. Please check the backend configuration.';
+        errorContent =
+          'RAG backend endpoint not found. Please check the backend configuration.';
       } else if (error?.response?.data?.message) {
         errorContent = error.response.data.message;
       } else if (error?.message) {

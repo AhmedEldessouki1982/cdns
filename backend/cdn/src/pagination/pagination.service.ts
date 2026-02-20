@@ -72,5 +72,19 @@ export class PaginationService {
     });
   }
 
-  //get the tods length and filter for closed and open items
+  //change the status of a tod, used for closing and opening a tod
+  async changeTODstatus(id: number, status: boolean): Promise<TOD> {
+    const targetTOD = await this.prisma.tOD.findUnique({
+      where: { id: id },
+    });
+
+    if (!targetTOD || !targetTOD.id) {
+      throw new BadRequestException('TOD not found');
+    }
+
+    return await this.prisma.tOD.update({
+      where: { id: id },
+      data: { status: status },
+    });
+  }
 }
