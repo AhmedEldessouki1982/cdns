@@ -18,11 +18,12 @@ import {
 } from 'lucide-react';
 import { Button } from '../ui/button';
 import { exportToExcel } from '@/utils/converXLS';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createTODsearchOptions } from '@/queryOptions/createTODQueryOptions';
 import { todsAPI } from '@/api/todClient';
 
 export type TableData = {
+  id: number;
   punchId: string;
   system: string;
   description: string;
@@ -58,9 +59,11 @@ export default function TableComponent({
     createTODsearchOptions({ searchQuery })
   );
 
-  //change the status of a tod useQuery
+  const queryClient = useQueryClient();
+
+  //change the status of a tod
   const { mutate } = useMutation({
-    mutationFn: (id: number, status: boolean) => {
+    mutationFn: ({ id, status }: { id: number; status: boolean }) => {
       return todsAPI.changeTODstatus(id, status);
     },
   });
@@ -121,7 +124,8 @@ export default function TableComponent({
               </TableHead>
               <TableHead className="text-center flex items-center justify-center cursor-pointer gap-2 font-semibold text-slate-600 tracking-wide uppercase text-xs">
                 <FilterIcon
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     // Cycle through: null (all) -> true (closed) -> false (open) -> null
                     setFilterStatus((prev) =>
                       prev === null ? true : prev === true ? false : null
@@ -189,7 +193,23 @@ export default function TableComponent({
 
                   <TableCell className="text-center">
                     <span
-                      className={`inline-flex items-center justify-center min-w-22 capitalize rounded-sm px-3 py-1 text-xs font-medium
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        mutate(
+                          { id: cdn.id, status: !cdn.status },
+                          {
+                            onSuccess: () => {
+                              queryClient.invalidateQueries({
+                                queryKey: ['tod'],
+                              });
+                            },
+                            onError: (error) => {
+                              console.error(error);
+                            },
+                          }
+                        );
+                      }}
+                      className={`inline-flex cursor-pointer items-center justify-center min-w-22 capitalize rounded-sm px-3 py-1 text-xs font-medium
                        ${cdn.status ? 'bg-emerald-500' : 'bg-red-400'} border text-white border-emerald-800`}
                     >
                       {cdn.status ? 'closed' : 'open'}
