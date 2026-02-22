@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -22,6 +22,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createTODsearchOptions } from '@/queryOptions/createTODQueryOptions';
 import { todsAPI } from '@/api/todClient';
 import { toast } from 'sonner';
+import type { UserType } from '@/types/UserType';
 
 export type TableData = {
   id: number;
@@ -55,6 +56,15 @@ export default function TableComponent({
   const [selected, setSelection] = useState<string[]>([]);
   const [filterStatus, setFilterStatus] = useState<boolean | null>(null);
 
+  //bring user form local storage
+  const [user, setUser] = useState<UserType | null>(null);
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      setUser(JSON.parse(user));
+    }
+  }, []);
+
   //search useQuery
   const { data: searchResponce } = useQuery(
     createTODsearchOptions({ searchQuery })
@@ -64,8 +74,16 @@ export default function TableComponent({
 
   //change the status of a tod
   const { mutate } = useMutation({
-    mutationFn: ({ id, status }: { id: number; status: boolean }) => {
-      return todsAPI.changeTODstatus(id, status);
+    mutationFn: ({
+      id,
+      status,
+      userId,
+    }: {
+      id: number;
+      status: boolean;
+      userId: number;
+    }) => {
+      return todsAPI.changeTODstatus(id, status, userId);
     },
   });
 
@@ -197,7 +215,11 @@ export default function TableComponent({
                       onClick={(e) => {
                         e.stopPropagation();
                         mutate(
-                          { id: cdn.id, status: !cdn.status },
+                          {
+                            id: cdn.id,
+                            status: !cdn.status,
+                            userId: parseInt(user?.id ?? '0'),
+                          },
                           {
                             onSuccess: () => {
                               toast.success('TOD status changed successfully');
@@ -206,7 +228,9 @@ export default function TableComponent({
                               });
                             },
                             onError: (error) => {
-                              toast.error('Failed to change TOD status');
+                              toast.error(
+                                'Failed to change TOD status / You are not authorized to change the status'
+                              );
                               console.error(error);
                             },
                           }
@@ -326,6 +350,5 @@ const parseISOString = (s: any) => {
 };
 const reformatDate = (rawdate: string) => {
   const [day, date, month, year] = rawdate.split(' ');
-  console.log(month, date, year, day);
   return `[${day}] ` + month + ' ' + date + ' ' + year;
 };

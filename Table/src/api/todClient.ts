@@ -47,10 +47,12 @@ const getSearch = async ({
 // http://localhost:3000/pagination/change-status/:id
 const changeTODstatus = async (
   id: number,
-  status: boolean
+  status: boolean,
+  userId: number
 ): Promise<TableData> => {
   const res = await client.put<TableData>(`/pagination/change-status/${id}`, {
     status,
+    userId,
   });
   return res.data;
 };

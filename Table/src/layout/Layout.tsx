@@ -16,7 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <Toaster
-        position="bottom-right"
+        position="top-center"
         className="z-50 shadow-xl bg-white/70 backdrop-blur-xl border border-white/40"
         duration={3000}
       />

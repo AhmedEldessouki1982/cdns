@@ -33,8 +33,8 @@ export class PaginationController {
   @Put('change-status/:id')
   async changeTODstatus(
     @Param('id', new ParseIntPipe()) id: number,
-    @Body() body: { status: boolean },
+    @Body() body: { status: boolean; userId: number },
   ): Promise<TOD> {
-    return this.paginationService.changeTODstatus(id, body.status);
+    return this.paginationService.changeTODstatus(id, body.status, body.userId);
   }
 }

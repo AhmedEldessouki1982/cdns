@@ -73,7 +73,23 @@ export class PaginationService {
   }
 
   //change the status of a tod, used for closing and opening a tod
-  async changeTODstatus(id: number, status: boolean): Promise<TOD> {
+  async changeTODstatus(
+    id: number,
+    status: boolean,
+    userId: number,
+  ): Promise<TOD> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    if (user.Role !== 'MANAGER') {
+      throw new BadRequestException('User is not an admin');
+    }
+
     const targetTOD = await this.prisma.tOD.findUnique({
       where: { id: id },
     });
