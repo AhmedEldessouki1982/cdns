@@ -4,6 +4,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import React from 'react';
 import { api } from '@/api/client';
 import LoginForm from '@/components/login/loginForm';
+import { Toaster } from '@/components/ui/sonner';
 
 type LayoutProps = { children: React.ReactNode };
 
@@ -14,6 +15,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <SidebarProvider>
+      <Toaster
+        position="bottom-right"
+        className="z-50 shadow-xl bg-white/70 backdrop-blur-xl border border-white/40"
+        duration={3000}
+      />
       <div className="flex min-h-screen w-full bg-linear-to-br from-gray-50 to-blue-50">
         <AppSidebar />
         <main className="flex-1 flex flex-col overflow-hidden">

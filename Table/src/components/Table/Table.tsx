@@ -21,6 +21,7 @@ import { exportToExcel } from '@/utils/converXLS';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createTODsearchOptions } from '@/queryOptions/createTODQueryOptions';
 import { todsAPI } from '@/api/todClient';
+import { toast } from 'sonner';
 
 export type TableData = {
   id: number;
@@ -199,11 +200,13 @@ export default function TableComponent({
                           { id: cdn.id, status: !cdn.status },
                           {
                             onSuccess: () => {
+                              toast.success('TOD status changed successfully');
                               queryClient.invalidateQueries({
                                 queryKey: ['tod'],
                               });
                             },
                             onError: (error) => {
+                              toast.error('Failed to change TOD status');
                               console.error(error);
                             },
                           }
